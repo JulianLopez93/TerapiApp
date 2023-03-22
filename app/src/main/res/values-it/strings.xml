@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BMI</string>
+    <string name="tv_res">Risultato</string>
+    <string name="Your_bmi_is">Il tuo indice di massa corporea e\' %1$s</string>
+    <string name="Your_weight_is">Il tuo peso e\' %1$s</string>
+    <string name="Low">Basso</string>
+    <string name="Normal">Normale</string>
+    <string name="You_are">Sei in %1$s</string>
+    <string name="Overweight">Sovrappeso</string>
+    <string name="Obese">Obesita\'</string>
+    <string name="Your_thinness_is">La tua magrezza e\' %1$s</string>
+    <string name="Severe">Severa</string>
+    <string name="Moderate">Moderata</string>
+    <string name="Mild">Leggera</string>
+    <string name="Your_obesity_is">La tua obesita\' e\' %1$s</string>
+    <string name="Morbid">Morbosa</string>
+    <string name="weight_alert">Devi inserire il tuo peso</string>
+    <string name="height_alert">Devi inserire la tua altezza</string>
+    <string name="txt_pes">Inserisci il tuo peso in chilogrammi</string>
+    <string name="txt_est">Inserisci il tuo peso in centimetri</string>
+    <string name="btn">Calcola</string>
+</resources>

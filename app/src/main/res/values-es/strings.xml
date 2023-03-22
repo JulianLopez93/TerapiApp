@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IMC</string>
+    <string name="txt_pes">Ingrese su peso en kilos</string>
+    <string name="txt_est">Ingrese su estatura en centímetros</string>
+    <string name="btn">Calcular</string>
+    <string name="tv_res">Resultado</string>
+    <string name="Your_bmi_is">Su índice de masa corporal es de %1$s</string>
+    <string name="Your_weight_is">Su peso es %1$s</string>
+    <string name="Low">Bajo</string>
+    <string name="Normal">Normal</string>
+    <string name="You_are">Tiene %1$s</string>
+    <string name="Overweight">Sobrepeso</string>
+    <string name="Obese">Obesidad</string>
+    <string name="Your_thinness_is">Su delgadez es %1$s</string>
+    <string name="Severe">Severa</string>
+    <string name="Moderate">Moderada</string>
+    <string name="Mild">Leve</string>
+    <string name="Your_obesity_is">Su obesidad es %1$s</string>
+    <string name="Morbid">Mórbida</string>
+    <string name="weight_alert">Debe ingresar su peso</string>
+    <string name="height_alert">Debe ingresar su estatura</string>
+</resources>

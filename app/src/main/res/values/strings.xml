@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">BMI</string>
+    <string name="txt_pes">Enter your weight in kilograms</string>
+    <string name="txt_est">Enter your height in centimeters</string>
+    <string name="btn">Calculate</string>
+    <string name="tv_res">Result</string>
+    <string name="Your_bmi_is">Your body mass index is %1$s</string>
+    <string name="Your_weight_is">Your weight is %1$s</string>
+    <string name="Low">Low</string>
+    <string name="Normal">Normal</string>
+    <string name="You_are">You are %1$s</string>
+    <string name="Overweight">Overweight</string>
+    <string name="Obese">Obese</string>
+    <string name="Your_thinness_is">Your thinness is %1$s</string>
+    <string name="Severe">Severe</string>
+    <string name="Moderate">Moderate</string>
+    <string name="Mild">Mild</string>
+    <string name="Your_obesity_is">Your obesity is %1$s</string>
+    <string name="Morbid">Morbid</string>
+    <string name="weight_alert">You must enter your weight</string>
+    <string name="height_alert">You must enter your height</string>
+
+
+</resources>
