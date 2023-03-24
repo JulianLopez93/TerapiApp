@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "641808253873",
+    "firebase_url": "https://terapiapp-96403-default-rtdb.firebaseio.com",
+    "project_id": "terapiapp-96403",
+    "storage_bucket": "terapiapp-96403.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641808253873:android:a3421b6d581bb4d5bc7390",
+        "android_client_info": {
+          "package_name": "com.ucaldas.terapiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641808253873-j17or0q23sm5ekf9eij4eaoe4trkjbdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ucaldas.terapiapp",
+            "certificate_hash": "3f97cc6b41a86a8fd5dd7ddd407b2028ca8fafd1"
+          }
+        },
+        {
+          "client_id": "641808253873-gi4cr3or4t42k29h8dtmsuo2a97doa72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX3QCfIswY2zxbhxucbdtMMRulRmxwIgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641808253873-gi4cr3or4t42k29h8dtmsuo2a97doa72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
