@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MyDatePickerStyle" parent="@android:style/Theme.Material.Light.Dialog.Alert">
-        <item name="android:background">@color/morado_100</item>
+        <item name="android:background">@color/purple_100</item>
         <item name="colorPrimary">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>
