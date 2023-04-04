@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".CrearReservaFragment">
+    tools:context=".fragmentos.CrearReservaFragment">
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,13 +22,13 @@
             android:paddingBottom="10dp"
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:text="servicio" />
+            android:text="Servicio" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:background="#F3E9F3"
+            android:background="@color/purple_50"
             android:orientation="horizontal">
 
             <ImageView
@@ -97,6 +97,7 @@
                 android:id="@+id/direccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/purple_50"
                 android:layout_weight="0"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -108,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:paddingTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -121,6 +123,7 @@
 
             <EditText
                 android:id="@+id/fecha"
+                android:background="@color/purple_50"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -138,15 +141,48 @@
                 android:textColor="@color/black"
                 android:text="Hora: " />
 
-            <Spinner
-                android:id="@+id/seleccionHora"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:entries="@array/SpinnerHoras"/>
+                android:background="@color/purple_50"
+                android:orientation="vertical">
+                <Spinner
+                    android:id="@+id/seleccionHora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:layout_weight="0" />
+            </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            android:padding="20dp"
+            android:gravity="center_horizontal">
 
+            <TextView
+                android:id="@+id/textoObservaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Observaciones: " />
+
+            <EditText
+                android:background="@color/purple_50"
+                android:id="@+id/observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"
+                android:minLines="5"
+                android:gravity="top"/>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,13 +190,13 @@
             android:paddingTop="30dp"
             android:gravity="center_horizontal">
 
-
             <Button
                 android:id="@+id/btnReservar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:textColor="@color/black"
+                android:background="@color/purple_100"
                 android:text="Reservar" />
             <Space
                 android:layout_width="50dp"
@@ -171,8 +207,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:textColor="@color/black"
+                android:background="@color/purple_100"
                 android:text="Cancelar" />
         </LinearLayout>
-
     </LinearLayout>
 </RelativeLayout>

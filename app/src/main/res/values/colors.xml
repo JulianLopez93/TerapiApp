@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
     <color name="purple_100">#D8BFD8</color>
+    <color name="purple_50">#F3E9F3</color>
     <color name="brown_500">#613918</color>
     <color name="background">#F9F4FA</color>
+
 </resources>

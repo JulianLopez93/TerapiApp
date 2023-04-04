@@ -1,4 +1,4 @@
-package com.ucaldas.terapiapp;
+package com.ucaldas.terapiapp.fragmentos;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ucaldas.terapiapp.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link sobreNosotrosFragment#newInstance} factory method to
+ * Use the {@link ServiciosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class sobreNosotrosFragment extends Fragment {
+public class ServiciosFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class sobreNosotrosFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public sobreNosotrosFragment() {
+    public ServiciosFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class sobreNosotrosFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment sobreNosotrosFragment.
+     * @return A new instance of fragment ServiciosFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static sobreNosotrosFragment newInstance(String param1, String param2) {
-        sobreNosotrosFragment fragment = new sobreNosotrosFragment();
+    public static ServiciosFragment newInstance(String param1, String param2) {
+        ServiciosFragment fragment = new ServiciosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class sobreNosotrosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sobre_nosotros, container, false);
+        return inflater.inflate(R.layout.fragment_servicios, container, false);
     }
 }

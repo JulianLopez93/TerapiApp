@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
+import com.ucaldas.terapiapp.fragmentos.ServiciosFragment;
+import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     @Override
