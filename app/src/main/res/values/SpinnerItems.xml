@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SpinnerHoras">
+        <item>8:00 a.m.</item>
+        <item>9:00 a.m.</item>
+        <item>10:00 a.m.</item>
+        <item>11:00 a.m.</item>
+        <item>2:00 p.m.</item>
+        <item>3:00 p.m.</item>
+        <item>4:00 p.m.</item>
+    </string-array>
+</resources>

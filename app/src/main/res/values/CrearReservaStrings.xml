@@ -1,0 +1,5 @@
+<resources>
+    <string name="servicio">Servicio: </string>
+    <string name="btnReservar">Reservar</string>
+    <string name="btnCancelar">Cancelar</string>
+</resources>
