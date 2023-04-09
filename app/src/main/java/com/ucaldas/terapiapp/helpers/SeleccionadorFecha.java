@@ -54,7 +54,7 @@ public class SeleccionadorFecha extends DialogFragment implements DatePickerDial
         EditText editTextDate = getActivity().findViewById(R.id.fecha);
         editTextDate.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth));
 
-        ArrayList<String> opciones = new ArrayList(Arrays.asList("8:00a.m.", "9:00a.m.", "10:00a.m.", "11:00a.m.", "2:00a.m.", "3:00a.m.", "4:00a.m."));
+        ArrayList<String> opciones = new ArrayList(Arrays.asList("8:00a.m.", "9:00a.m.", "10:00a.m.", "11:00a.m.", "2:00p.m.", "3:00p.m.", "4:00p.m."));
         FragmentActivity activity = getActivity();
         ServicioReservacionFirebase servicioReservacionFirebase = new ServicioReservacionFirebase();
         servicioReservacionFirebase.horasOcupadas(editTextDate.getText().toString()).addOnCompleteListener(new OnCompleteListener<String>() {
