@@ -1,8 +1,11 @@
 package com.ucaldas.terapiapp.DAL;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,22 +14,36 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ServicioReservacionFirebase {
     private FirebaseFunctions functions;
+    private FirebaseFirestore db;
 
-    public ServicioReservacionFirebase(){
+    public ServicioReservacionFirebase() {
         functions = FirebaseFunctions.getInstance();
+        db = FirebaseFirestore.getInstance();
     }
+
     public void crearReservacion(Reserva reservacion, View vista) {
 
         Map<String, Object> data = new HashMap<>();
@@ -43,7 +60,7 @@ public class ServicioReservacionFirebase {
                 .addOnSuccessListener(result -> {
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Reserva Creada")
-                            .setMessage("La reserva para el dia: "+reservacion.getFecha()+" a las: "+reservacion.getHora()+ " fue realizada correctamente")
+                            .setMessage("La reserva para el dia: " + reservacion.getFecha() + " a las: " + reservacion.getHora() + " fue realizada correctamente")
                             .setCancelable(false)
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 @Override
@@ -72,6 +89,7 @@ public class ServicioReservacionFirebase {
                 });
     }
 
+
     public Task<String> horasOcupadas(String fecha) {
 
         Map<String, Object> data = new HashMap<>();
@@ -88,4 +106,54 @@ public class ServicioReservacionFirebase {
                     }
                 });
     }
+
+    public  void listarReservas(View vista) {
+        functions
+                .getHttpsCallable("consultarReservas")
+                .call()
+                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                    @Override
+                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        // manejar el resultado
+                        ArrayList<HashMap<String, Object>> listaReservas = (ArrayList<HashMap<String, Object>>) httpsCallableResult.getData();
+                        //ArrayList<String> listaReservas = (ArrayList<String>) httpsCallableResult.getData();
+                        Log.d(TAG, "Lista de reservas: "+listaReservas);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // manejar el error
+                        Log.e(TAG, "Error al llamar a la función: ", e);
+                    }
+                });
+    }
+
+/*
+    public  void listarReservas() {
+        ArrayList<Reserva> reservas=new ArrayList<>();
+
+        db.collection("Reserva")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Reserva reserva=document.toObject(Reserva.class);
+                                reservas.add(reserva);
+                                Log.d(TAG,reserva.toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                        Log.d(TAG,"Reservas: "+reservas.toString());
+                    }
+                });
+
+    }
+
+ */
+
+
 }

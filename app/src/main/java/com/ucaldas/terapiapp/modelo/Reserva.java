@@ -9,6 +9,10 @@ public class Reserva {
     private String Lugar;
     private String Observaciones;
 
+
+    public Reserva() {
+
+    }
     public Reserva(int id_Servicio, int id_Cliente, int id_EstadoReserva, String fecha, String hora, String lugar, String observaciones) {
         Id_Servicio = id_Servicio;
         Id_Cliente = id_Cliente;
@@ -69,6 +73,19 @@ public class Reserva {
 
     public String getObservaciones() {
         return Observaciones;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "Id_Servicio=" + Id_Servicio +
+                ", Id_Cliente=" + Id_Cliente +
+                ", Id_EstadoReserva=" + Id_EstadoReserva +
+                ", Fecha='" + Fecha + '\'' +
+                ", Hora='" + Hora + '\'' +
+                ", Lugar='" + Lugar + '\'' +
+                ", Observaciones='" + Observaciones + '\'' +
+                '}';
     }
 
     public void setObservaciones(String observaciones) {

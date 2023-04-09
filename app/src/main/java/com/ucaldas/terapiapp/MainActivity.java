@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
+import com.ucaldas.terapiapp.fragmentos.ListaReservasFragment;
 import com.ucaldas.terapiapp.fragmentos.ServiciosFragment;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new sobreNosotrosFragment()).commit();
+                break;
+            case R.id.nav_list:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListaReservasFragment()).commit();
+
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
