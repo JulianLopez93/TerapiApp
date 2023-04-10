@@ -39,11 +39,9 @@ import java.util.stream.Collectors;
 
 public class ServicioReservacionFirebase {
     private FirebaseFunctions functions;
-    private FirebaseFirestore db;
 
     public ServicioReservacionFirebase() {
         functions = FirebaseFunctions.getInstance();
-        db = FirebaseFirestore.getInstance();
     }
 
     public void crearReservacion(Reserva reservacion, View vista) {

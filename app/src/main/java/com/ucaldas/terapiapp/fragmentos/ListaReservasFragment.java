@@ -35,7 +35,6 @@ public class ListaReservasFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private FirebaseFirestore db;
 
     View vista;
    RecyclerView recyclerReservas;
@@ -45,7 +44,6 @@ public class ListaReservasFragment extends Fragment {
 
     public ListaReservasFragment() {
         // Required empty public constructor
-        db = FirebaseFirestore.getInstance();
     }
 
     /**
@@ -84,11 +82,7 @@ public class ListaReservasFragment extends Fragment {
 
         listarReservacion();
 
-/*
-        FirestoreRecyclerOptions<Reserva> options = new FirestoreRecyclerOptions.Builder<Reserva>()
-                .setQuery(FirebaseDatabase, Reserva.class)
-                .build();
-                */
+
 
 
         return vista;
