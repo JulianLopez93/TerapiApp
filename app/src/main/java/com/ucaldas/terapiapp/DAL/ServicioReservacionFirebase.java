@@ -30,10 +30,12 @@ import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ServicioReservacionFirebase {
     private FirebaseFunctions functions;
@@ -115,9 +117,25 @@ public class ServicioReservacionFirebase {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
                         // manejar el resultado
-                        ArrayList<HashMap<String, Object>> listaReservas = (ArrayList<HashMap<String, Object>>) httpsCallableResult.getData();
+                        //ArrayList<HashMap<String, Reserva>> listaReservas = (ArrayList<HashMap<String, Reserva>>) httpsCallableResult.getData();
                         //ArrayList<String> listaReservas = (ArrayList<String>) httpsCallableResult.getData();
-                        Log.d(TAG, "Lista de reservas: "+listaReservas);
+                        //ArrayList<Reserva> listaReservas = new ArrayList<>();
+                        ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) httpsCallableResult.getData();
+                        ArrayList<Reserva> listaReservas = data.stream().map(d -> {
+                            Reserva reserva = new Reserva();
+                            reserva.setId_Servicio((Integer)d.get("Id_Servicio"));
+                            reserva.setId_Cliente((Integer)d.get("Id_Cliente"));
+                            reserva.setId_EstadoReserva((Integer)d.get("Id_EstadoReserva"));
+                            reserva.setFecha((String) d.get("Fecha"));
+                            reserva.setHora((String) d.get("Hora"));
+                            reserva.setObservaciones((String) d.get("Observaciones"));
+                            reserva.setLugar((String) d.get("Lugar"));
+                            return reserva;
+                        }).collect(Collectors.toCollection(ArrayList::new));
+
+                        for (Reserva reserva: listaReservas) {
+                            Log.d(TAG, reserva.toString());
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
