@@ -75,10 +75,12 @@ public class CrearReservaFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_crear_reserva, container, false);
 
         seleccionadorFecha = (TextView) vista.findViewById(R.id.fecha);
+
+
         seleccionadorFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(v,vista);
+                showDatePickerDialog(vista);
             }
         });
 
@@ -115,7 +117,7 @@ public class CrearReservaFragment extends Fragment {
 
     }
 
-    public void showDatePickerDialog(View view, View vista) {
+    public void showDatePickerDialog(View vista) {
         SeleccionadorFecha seleccionadorFecha = new SeleccionadorFecha(vista);
         seleccionadorFecha.show(requireActivity().getSupportFragmentManager(), "datePicker");
 

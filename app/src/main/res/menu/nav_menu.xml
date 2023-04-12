@@ -10,9 +10,13 @@
             android:icon="@drawable/nav_home"
             android:title="Servicios"/>
         <item
-            android:id="@+id/nav_shop"
+            android:id="@+id/nav_crearReserva"
             android:icon="@drawable/nav_shop"
             android:title="Crear Reserva"/>
+        <item
+            android:id="@+id/nav_listarReserva"
+            android:icon="@drawable/tareas_pendientes"
+            android:title="Listar Reservas"/>
     </group>
     <item
         android:title="">

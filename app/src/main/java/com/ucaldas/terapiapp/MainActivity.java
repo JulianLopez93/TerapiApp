@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
+import com.ucaldas.terapiapp.fragmentos.ListarReservasFragment;
 import com.ucaldas.terapiapp.fragmentos.ServiciosFragment;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 
@@ -57,11 +58,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_shop:
+            case R.id.nav_crearReserva:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CrearReservaFragment()).commit();
                 break;
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ServiciosFragment()).commit();
+                break;
+            case R.id.nav_listarReserva:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListarReservasFragment()).commit();
                 break;
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new sobreNosotrosFragment()).commit();
