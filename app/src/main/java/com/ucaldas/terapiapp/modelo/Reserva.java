@@ -9,6 +9,10 @@ public class Reserva {
     private String Lugar;
     private String Observaciones;
 
+    public Reserva() {
+
+    }
+
     public Reserva(int id_Servicio, int id_Cliente, int id_EstadoReserva, String fecha, String hora, String lugar, String observaciones) {
         Id_Servicio = id_Servicio;
         Id_Cliente = id_Cliente;
