@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".fragmentos.CrearReservaFragment">
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tituloCrearServicio"
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="20dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:text="Crear Servicio" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/textoCrearServicioNombreServicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Nombre: " />
+
+            <EditText
+                android:background="@color/purple_50"
+                android:id="@+id/crearServicioNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/purple_50"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagenServicio1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/agregar_imagen" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/purple_100"/>
+
+            <ImageView
+                android:id="@+id/imagenServicio2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/agregar_imagen" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/purple_100"/>
+
+            <ImageView
+                android:id="@+id/imagenServicio3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/agregar_imagen" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textoCrearServicioDuracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Duracion: " />
+
+            <EditText
+                android:id="@+id/crearServicioDuracion"
+                android:background="@color/purple_50"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:text="60"/>
+            <TextView
+                android:id="@+id/textoCrearServicioMinutos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Minutos" />
+
+            <TextView
+                android:id="@+id/textoCrearReservaPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:paddingStart="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Precio: " />
+
+            <EditText
+                android:id="@+id/crearServicioPrecio"
+                android:background="@color/purple_50"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_weight="0"
+                android:textColor="@color/black"
+                android:text="80000"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textoCrearReservaMateriales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Materiales: " />
+
+            <EditText
+                android:background="@color/purple_50"
+                android:id="@+id/crearServicioMateriales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"
+                android:minLines="3"
+                android:gravity="top"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textoCrearReservaDescripcion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Descripcion: " />
+
+            <EditText
+                android:background="@color/purple_50"
+                android:id="@+id/crearServicioDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"
+                android:minLines="3"
+                android:gravity="top"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textoCrearReservaProcedimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Procedimiento: " />
+
+            <EditText
+                android:background="@color/purple_50"
+                android:id="@+id/crearServicioProcedimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"
+                android:minLines="3"
+                android:gravity="top"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnCrearServicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textColor="@color/black"
+                android:background="@color/purple_100"
+                android:text="Crear Servicio" />
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="10dp"/>
+            <Button
+                android:id="@+id/btnCrearServicioCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textColor="@color/black"
+                android:background="@color/purple_100"
+                android:text="Cancelar" />
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
