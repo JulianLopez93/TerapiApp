@@ -6,6 +6,10 @@
     <group
         android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_crearServicio"
+            android:icon="@drawable/agregar_circulo"
+            android:title="Crear Servicio"/>
+        <item
             android:id="@+id/nav_home"
             android:icon="@drawable/nav_home"
             android:title="Servicios"/>

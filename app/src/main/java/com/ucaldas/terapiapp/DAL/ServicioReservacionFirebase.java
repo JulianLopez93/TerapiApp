@@ -32,7 +32,7 @@ public class ServicioReservacionFirebase {
     public ServicioReservacionFirebase(){
         functions = FirebaseFunctions.getInstance();
     }
-    public void crearReservacion(Reserva reservacion, View vista) {
+    public void crearReservacion(Reserva reservacion, View vista,AlertDialog cargandoAlerta) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("Fecha", reservacion.getFecha());
@@ -46,6 +46,7 @@ public class ServicioReservacionFirebase {
                 .getHttpsCallable("crearReserva")
                 .call(data)
                 .addOnSuccessListener(result -> {
+                    cargandoAlerta.dismiss();
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Reserva Creada")
                             .setMessage("La reserva para el dia: "+reservacion.getFecha()+" a las: "+reservacion.getHora()+ " fue realizada correctamente")
@@ -63,6 +64,7 @@ public class ServicioReservacionFirebase {
                             }).show();
                 })
                 .addOnFailureListener(e -> {
+                    cargandoAlerta.dismiss();
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Error")
                             .setMessage(e.getMessage())
