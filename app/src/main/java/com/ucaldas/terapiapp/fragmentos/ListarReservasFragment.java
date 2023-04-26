@@ -36,67 +36,54 @@ import java.util.Locale;
 
 public class ListarReservasFragment extends Fragment {
 
+    View vista;
     private RecyclerView reservasRecyclerView;
     private ReservaAdapter reservaAdapter;
-    TextView listarReservaFecha;
-    FloatingActionButton btnSiguienteFecha,btnAnteriorFecha;
+    private TextView listarReservaFecha;
+    private FloatingActionButton btnSiguienteFecha,btnAnteriorFecha;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_listar_reservas, container, false);
+        vista = inflater.inflate(R.layout.fragment_listar_reservas, container, false);
 
-        listarReservaFecha = (TextView) root.findViewById(R.id.listarReservaFecha);
+        listarReservaFecha = vista.findViewById(R.id.listarReservaFecha);
 
 
         LocalDate fechaActual = LocalDate.now();
         String fechaActualString = fechaActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        btnSiguienteFecha = (FloatingActionButton) root.findViewById(R.id.btnSiguienteFecha);
-        btnAnteriorFecha = (FloatingActionButton) root.findViewById(R.id.btnAnteriorFecha);
+        btnSiguienteFecha = vista.findViewById(R.id.btnSiguienteFecha);
+        btnAnteriorFecha = vista.findViewById(R.id.btnAnteriorFecha);
 
-        btnAnteriorFecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LocalDate fecha = LocalDate.parse(listarReservaFecha.getText());
-
-
-                LocalDate fechaDisminuida = fecha.minusDays(1);
-
-                String fechaDisminuidaString = fechaDisminuida.toString();
-                listarReservaFecha.setText(fechaDisminuidaString);
-            }
+        btnAnteriorFecha.setOnClickListener(v -> {
+            LocalDate fecha = LocalDate.parse(listarReservaFecha.getText());
+            LocalDate fechaDisminuida = fecha.minusDays(1);
+            String fechaDisminuidaString = fechaDisminuida.toString();
+            listarReservaFecha.setText(fechaDisminuidaString);
         });
 
-        btnSiguienteFecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LocalDate fecha = LocalDate.parse(listarReservaFecha.getText());
-
-
-                LocalDate fechaAumentada = fecha.plusDays(1);
-
-                String fechaAumentadaString = fechaAumentada.toString();
-                listarReservaFecha.setText(fechaAumentadaString);
-            }
+        btnSiguienteFecha.setOnClickListener(v -> {
+            LocalDate fecha = LocalDate.parse(listarReservaFecha.getText());
+            LocalDate fechaAumentada = fecha.plusDays(1);
+            String fechaAumentadaString = fechaAumentada.toString();
+            listarReservaFecha.setText(fechaAumentadaString);
         });
 
-        listarReservaFecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialogListarReserva(root);
-            }
-        });
-        reservasRecyclerView = root.findViewById(R.id.listarReservasReciclerView);
+        listarReservaFecha.setOnClickListener(v -> mostrarDatePickerDialogListarReserva(vista));
 
+        reservasRecyclerView = vista.findViewById(R.id.listarReservasReciclerView);
+
+        cambioTextoListener(listarReservaFecha);
+        listarReservaFecha.setText(fechaActualString);
+
+        return vista;
+    }
+
+    private void cambioTextoListener(TextView listarReservaFecha) {
         listarReservaFecha.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<Reserva> lista = new ArrayList<>();
@@ -106,11 +93,8 @@ public class ListarReservasFragment extends Fragment {
                     public void onComplete(@NonNull Task<ArrayList<Reserva>> task) {
                         if (task.isSuccessful()){
                             ArrayList<Reserva> listaReservas = task.getResult();
-
                             reservasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                            reservaAdapter = new ReservaAdapter(getContext(),listaReservas);
-
+                            reservaAdapter = new ReservaAdapter(vista.getContext(),listaReservas);
                             reservasRecyclerView.setAdapter(reservaAdapter);
                         }else{
                             task.getException().printStackTrace();
@@ -119,20 +103,14 @@ public class ListarReservasFragment extends Fragment {
                 });
 
             }
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
-        listarReservaFecha.setText(fechaActualString);
-
-        return root;
     }
 
-    public void showDatePickerDialogListarReserva(View vista) {
+    public void mostrarDatePickerDialogListarReserva(View vista) {
         CalendarioFecha calendarioFecha = new CalendarioFecha(vista);
         calendarioFecha.show(requireActivity().getSupportFragmentManager(), "datePicker");
-
     }
+
 }

@@ -24,7 +24,7 @@ public class ServicioServicioFirebase {
         functions = FirebaseFunctions.getInstance();
     }
 
-    public void crearServicio(Servicio servicio, View vista) {
+    public void crearServicio(Servicio servicio, View vista,AlertDialog cargandoAlerta) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("Nombre", servicio.getNombre());
@@ -38,6 +38,7 @@ public class ServicioServicioFirebase {
                 .getHttpsCallable("crearServicio")
                 .call(data)
                 .addOnSuccessListener(result -> {
+                    cargandoAlerta.dismiss();
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Servicio Creado")
                             .setMessage("El servicio "+servicio.getNombre()+" Fue Creado Correctamente")
@@ -47,6 +48,7 @@ public class ServicioServicioFirebase {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     FragmentManager fragmentManager = ((AppCompatActivity) vista.getContext()).getSupportFragmentManager();
+
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.fragment_container, new sobreNosotrosFragment());
                                     fragmentTransaction.addToBackStack(null);
@@ -55,6 +57,7 @@ public class ServicioServicioFirebase {
                             }).show();
                 })
                 .addOnFailureListener(e -> {
+                    cargandoAlerta.dismiss();
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Error")
                             .setMessage(e.getMessage())
