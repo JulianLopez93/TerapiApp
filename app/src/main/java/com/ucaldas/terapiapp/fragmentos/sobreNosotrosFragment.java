@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ucaldas.terapiapp.DAL.ServicioReporteFirebase;
+import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
 
 /**
@@ -60,6 +62,8 @@ public class sobreNosotrosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ServicioReporteFirebase servicioReporteFirebase = new ServicioReporteFirebase();
+        servicioReporteFirebase.serviciosMasVendidosMes("2023-04-13");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sobre_nosotros, container, false);
     }
