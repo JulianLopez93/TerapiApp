@@ -34,13 +34,6 @@ public class ServicioReporteFirebase {
                         throw e;
                     }
                 });
-
     }
-
-
-
-
-
-
 
 }
