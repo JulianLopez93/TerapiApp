@@ -1,0 +1,89 @@
+package com.ucaldas.terapiapp.DAL;
+
+import android.app.AlertDialog;
+import android.util.Log;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+import com.ucaldas.terapiapp.helpers.CargandoAlerta;
+import com.ucaldas.terapiapp.modelo.ReporteServicio;
+import com.ucaldas.terapiapp.modelo.Reserva;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ServicioReporteFirebase {
+
+    private FirebaseFunctions functions;
+
+    public ServicioReporteFirebase(){
+        functions = FirebaseFunctions.getInstance();
+    }
+    public Task<ArrayList<ReporteServicio>> serviciosMasVendidosMes(String fecha, View vista, AlertDialog cargandoAlerta) {
+        ArrayList<ReporteServicio> reportes = new ArrayList<>();
+        Map<String, Object> data = new HashMap<>();
+        data.put("Fecha", fecha);
+        return functions
+                .getHttpsCallable("reservasMasVendidasMes")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, ArrayList<ReporteServicio>>() {
+                    @Override
+                    public ArrayList<ReporteServicio> then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        if (task.isSuccessful()) {
+                            HttpsCallableResult result = task.getResult();
+
+                            if (result != null) {
+                                ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
+                                for (Map<String, Object> d : informacion) {
+                                    ReporteServicio reporte = new ReporteServicio();
+                                    reporte.setNombre((String) d.get("Nombre"));
+                                    reporte.setPrecio(Double.parseDouble (d.get("Precio")+""));
+                                    reporte.setDuracion((Integer) d.get("Duracion"));
+                                    reporte.setCantidad((Integer) d.get("Cantidad"));
+                                    reportes.add(reporte);
+                                }
+                            }
+                        }
+                        if(reportes.size() == 0){
+                            cargandoAlerta.dismiss();
+                            new AlertDialog.Builder(vista.getContext())
+                                    .setTitle("Error")
+                                    .setMessage(task.getException().getMessage())
+                                    .setPositiveButton("Aceptar", (dialog, which) -> {
+                                        dialog.dismiss();
+                                    })
+                                    .show();
+                        }
+                        return reportes;
+                    }
+                });
+    }
+
+    public Task<ArrayList<String>> servicios(String id) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("Id", id);
+
+        return functions.getHttpsCallable("consultarServicioReserva")
+                .call(data)
+                .continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        ArrayList<String> result = (ArrayList<String>) task.getResult().getData();
+                        Log.d("hola", task.getResult().getData().toString());
+                        return result;
+                    } else {
+                        Exception e = task.getException();
+                        Log.d("hola", "error"+task.getException().toString());
+                        throw e;
+                    }
+                });
+    }
+
+}

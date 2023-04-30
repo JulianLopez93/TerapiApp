@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ucaldas.terapiapp.DAL.ServicioReporteFirebase;
+import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
 
 /**
