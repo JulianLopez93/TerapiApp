@@ -1,16 +1,26 @@
 package com.ucaldas.terapiapp.fragmentos;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.ucaldas.terapiapp.DAL.ServicioReporteFirebase;
 import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
+import com.ucaldas.terapiapp.DAL.ServicioServicioFirebase;
 import com.ucaldas.terapiapp.R;
+import com.ucaldas.terapiapp.modelo.Servicio;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +34,15 @@ public class sobreNosotrosFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private TextView datoEjemplo;
+
+    View vista;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    String nombreEjemplo;
 
     public sobreNosotrosFragment() {
         // Required empty public constructor
@@ -56,13 +72,57 @@ public class sobreNosotrosFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sobre_nosotros, container, false);
+
+        vista = inflater.inflate(R.layout.fragment_sobre_nosotros, container, false);
+
+        datoEjemplo = vista.findViewById(R.id.textView3);
+
+        obtenerServicio();
+
+
+        return vista;
+    }
+
+    public void obtenerServicio()
+    {
+        ServicioServicioFirebase servicioServicioFirebase = new ServicioServicioFirebase();
+
+        servicioServicioFirebase.listarServicios().addOnCompleteListener(new OnCompleteListener<ArrayList<Servicio>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Servicio>> task) {
+                if (task.isSuccessful())
+                {
+                    ArrayList<Servicio> listaServicios = task.getResult();
+
+                    nombreEjemplo = listaServicios.get(0).getNombre();
+                    Log.d("hola2", "Servicio imp: " + nombreEjemplo);
+                    datoEjemplo.setText(nombreEjemplo);
+                }
+                else{
+                    //cargandoAlerta.dismiss();
+                    new AlertDialog.Builder(vista.getContext())
+                            .setTitle("Error")
+                            .setMessage(task.getException().toString())
+                            .setPositiveButton("Aceptar", (dialog, which) -> {
+                                dialog.dismiss();
+                            })
+                            .show();
+                }
+
+            }
+        });
+
+
     }
 }
