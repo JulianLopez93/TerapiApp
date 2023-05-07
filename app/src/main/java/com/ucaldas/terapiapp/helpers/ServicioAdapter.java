@@ -48,8 +48,8 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         Servicio item = servicios.get(position);
         String nombre = servicios.get(position).getNombre();
         String descripcion = servicios.get(position).getDescripcion();
-        String duracion = servicios.get(position).getDuracion()+"";
-        String precio = servicios.get(position).getPrecio()+"";
+        String duracion = servicios.get(position).getDuracion()+" min";
+        String precio = "$"+servicios.get(position).getPrecio()+"";
         holder.nombre.setText(nombre);
         holder.descripcion.setText(descripcion);
         holder.duracion.setText(duracion);
