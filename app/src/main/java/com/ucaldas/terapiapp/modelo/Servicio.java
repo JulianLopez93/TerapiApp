@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Servicio {
 
+    private String id;
     private String Nombre;
     private ArrayList<String> Imagenes;
     private int Duracion;
