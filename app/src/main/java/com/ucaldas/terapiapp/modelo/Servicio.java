@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Servicio {
 
+    private String Id;
     private String Nombre;
     private ArrayList<String> Imagenes;
     private int Duracion;
@@ -16,7 +17,8 @@ public class Servicio {
         Imagenes = new ArrayList<>();
     }
 
-    public Servicio(String nombre, ArrayList<String> imagenes, int duracion, Double precio, String materiales, String descripcion, String procedimiento) {
+    public Servicio(String id, String nombre, ArrayList<String> imagenes, int duracion, Double precio, String materiales, String descripcion, String procedimiento) {
+        Id = id;
         Nombre = nombre;
         Imagenes = imagenes;
         Duracion = duracion;
@@ -24,6 +26,14 @@ public class Servicio {
         Materiales = materiales;
         Descripcion = descripcion;
         Procedimiento = procedimiento;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getNombre() {
@@ -36,10 +46,6 @@ public class Servicio {
 
     public ArrayList<String> getImagenes() {
         return Imagenes;
-    }
-
-    public void agregarImagen(String url){
-        Imagenes.add(url);
     }
 
     public void setImagenes(ArrayList<String> imagenes) {

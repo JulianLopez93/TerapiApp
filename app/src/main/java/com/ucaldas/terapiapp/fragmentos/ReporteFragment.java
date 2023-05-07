@@ -33,7 +33,6 @@ import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.helpers.CargandoAlerta;
 import com.ucaldas.terapiapp.helpers.ReporteAdapter;
 
-import com.ucaldas.terapiapp.helpers.ReservaAdapter;
 import com.ucaldas.terapiapp.modelo.ReporteServicio;
 import com.ucaldas.terapiapp.modelo.Reserva;
 

@@ -17,7 +17,10 @@ import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.helpers.CargandoAlerta;
 import com.ucaldas.terapiapp.helpers.SeleccionadorFecha;
+import com.ucaldas.terapiapp.modelo.Cliente;
+import com.ucaldas.terapiapp.modelo.EstadoReserva;
 import com.ucaldas.terapiapp.modelo.Reserva;
+import com.ucaldas.terapiapp.modelo.Servicio;
 
 public class CrearReservaFragment extends Fragment {
     private View vista;
@@ -46,7 +49,13 @@ public class CrearReservaFragment extends Fragment {
             cargandoAlerta = new CargandoAlerta().cargaAlerta(getLayoutInflater(),vista);
             cargandoAlerta.show();
             try {
-                Reserva reserva = new Reserva(1,1,1,fecha.getText().toString(),seleccionHora.getSelectedItem().toString(),"Carrera 20a #63-07",observaciones.getText().toString());
+                Servicio servicio = new Servicio();
+                servicio.setId("0IA0uxLQwVbjcAZtlnUp");
+                Cliente cliente = new Cliente();
+                cliente.setId("1");
+                EstadoReserva estadoReserva = new EstadoReserva();
+                estadoReserva.setId("1");
+                Reserva reserva = new Reserva(servicio,cliente,estadoReserva,fecha.getText().toString(),seleccionHora.getSelectedItem().toString(),"Carrera 20a #63-07",observaciones.getText().toString());
                 crearReservacion(reserva);
                 btnReservar.setEnabled(false);
             } catch (Exception e) {
