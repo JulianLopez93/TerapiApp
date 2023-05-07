@@ -121,7 +121,7 @@ public class CrearServicioFragment extends Fragment {
     public void crearServicio() throws Exception {
 
         VerificadorDeCamposCrearServicio();
-        Servicio servicio = new Servicio(crearServicioNombre.getText().toString(),
+        Servicio servicio = new Servicio("",crearServicioNombre.getText().toString(),
                 imagenes,Integer.parseInt(crearServicioDuracion.getText().toString()),
                 Double.parseDouble(crearServicioPrecio.getText().toString()),
                 crearServicioMateriales.getText().toString(),

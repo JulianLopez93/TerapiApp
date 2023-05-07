@@ -1,6 +1,8 @@
 package com.ucaldas.terapiapp.helpers;
 
 import android.content.Context;
+import android.service.restrictions.RestrictionsReceiver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,65 +11,64 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.modelo.Reserva;
 
-import java.util.ArrayList;
 
-public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ReservaViewHolder> implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHolder> {
     LayoutInflater inflater;
     ArrayList<Reserva> reservas;
-
     private View.OnClickListener listener;
-
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener=listener;
-    }
 
     public ReservaAdapter(Context context, ArrayList<Reserva> reservas){
         this.inflater = LayoutInflater.from(context);
         this.reservas=reservas;
     }
 
-    @NonNull
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView nameTextView;
+        private TextView descriptionTextView;
+        private ViewPager imageViewPager;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            nameTextView = itemView.findViewById(R.id.nombreServicioL);
+            descriptionTextView = itemView.findViewById(R.id.observacionesServicioL);
+            imageViewPager = itemView.findViewById(R.id.imageViewPager);
+        }
+    }
+
+
     @Override
-    public ReservaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view =inflater.inflate(R.layout.reservas_items,parent,false);
-        view.setOnClickListener(this);
-        return new ReservaViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReservaViewHolder holder, int position) {
-        String id = reservas.get(position).getId_Servicio()+"";
-        String descripcion = reservas.get(position).getObservaciones();
-        String hora = reservas.get(position).getHora();
-        holder.id.setText(id);
-        holder.descripcion.setText(descripcion);
-        holder.hora.setText(hora);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Reserva item = reservas.get(position);
+
+        holder.nameTextView.setText(item.getServicio().getNombre());
+        holder.descriptionTextView.setText(item.getObservaciones());
+
+        ImagePagerAdapter adapter = new ImagePagerAdapter(item.getServicio().getImagenes(), inflater.getContext());
+        holder.imageViewPager.setAdapter(adapter);
     }
 
     @Override
     public int getItemCount() {
-        return this.reservas.size();
+        return reservas.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        if (listener!=null){
-            listener.onClick(v);
-        }
+    public void setData(ArrayList<Reserva> newItems) {
+        reservas = newItems;
+        notifyDataSetChanged();
     }
 
-    public class ReservaViewHolder extends RecyclerView.ViewHolder{
-        TextView id,descripcion,hora;
-        public ReservaViewHolder(@NonNull View itemView) {
-            super(itemView);
-            id = itemView.findViewById(R.id.nombreServicioL);
-            descripcion = itemView.findViewById(R.id.observacionesServicioL);
-            hora = itemView.findViewById(R.id.horaServicioL);
-
-        }
-    }
 }

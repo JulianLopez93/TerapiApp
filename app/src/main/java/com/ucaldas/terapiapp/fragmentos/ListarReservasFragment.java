@@ -22,9 +22,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.helpers.CalendarioFecha;
-import com.ucaldas.terapiapp.helpers.ReservaAdapter;
+import com.ucaldas.terapiapp.helpers.*;
 import com.ucaldas.terapiapp.helpers.SeleccionadorFecha;
 import com.ucaldas.terapiapp.modelo.Reserva;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -48,7 +49,6 @@ public class ListarReservasFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_listar_reservas, container, false);
 
         listarReservaFecha = vista.findViewById(R.id.listarReservaFecha);
-
 
         LocalDate fechaActual = LocalDate.now();
         String fechaActualString = fechaActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -88,15 +88,18 @@ public class ListarReservasFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<Reserva> lista = new ArrayList<>();
                 ServicioReservacionFirebase servicioReservacionFirebase = new ServicioReservacionFirebase();
+
                 servicioReservacionFirebase.listarReservas(s.toString()).addOnCompleteListener(new OnCompleteListener<ArrayList<Reserva>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Reserva>> task) {
+                        Log.d("hola", task.getResult().toString());
                         if (task.isSuccessful()){
                             ArrayList<Reserva> listaReservas = task.getResult();
                             reservasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             reservaAdapter = new ReservaAdapter(vista.getContext(),listaReservas);
                             reservasRecyclerView.setAdapter(reservaAdapter);
                         }else{
+                            Log.d("hola", task.getException().getMessage());
                             task.getException().printStackTrace();
                         }
                     }
