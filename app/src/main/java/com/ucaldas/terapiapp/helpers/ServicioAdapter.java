@@ -1,6 +1,7 @@
 package com.ucaldas.terapiapp.helpers;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     ArrayList<Servicio> servicios;
 
     private View.OnClickListener listener;
+    private Handler handler = new Handler();
 
     public void setOnClickListener(View.OnClickListener listener){
         this.listener=listener;
@@ -46,8 +48,8 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         Servicio item = servicios.get(position);
         String nombre = servicios.get(position).getNombre();
         String descripcion = servicios.get(position).getDescripcion();
-        String duracion = servicios.get(position).getDuracion()+"";
-        String precio = servicios.get(position).getPrecio()+"";
+        String duracion = servicios.get(position).getDuracion()+" min";
+        String precio = "$"+servicios.get(position).getPrecio()+"";
         holder.nombre.setText(nombre);
         holder.descripcion.setText(descripcion);
         holder.duracion.setText(duracion);
@@ -58,8 +60,26 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
                 listaImagenes.add(imagen);
             }
         }
+        ImagePagerAdapter adapter = new ImagePagerAdapter(listaImagenes, inflater.getContext());
+        holder.imageViewPager.setAdapter(adapter);
 
+        // Establecer ViewPager para cambiar automáticamente de página
+        final int count = adapter.getCount();
+        final Runnable runnable = new Runnable() {
+            int currentPage = 0;
+            @Override
+            public void run() {
+                if (currentPage == count) {
+                    currentPage = 0;
+                }
+                holder.imageViewPager.setCurrentItem(currentPage++, true);
+                handler.postDelayed(this, 3000);
+            }
+        };
+        handler.postDelayed(runnable, 3000);
     }
+
+
 
     @Override
     public int getItemCount() {
