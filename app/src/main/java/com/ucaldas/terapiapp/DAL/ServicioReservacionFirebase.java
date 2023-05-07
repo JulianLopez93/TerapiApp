@@ -18,8 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.ucaldas.terapiapp.R;
+import com.ucaldas.terapiapp.modelo.Cliente;
+import com.ucaldas.terapiapp.modelo.EstadoReserva;
+import com.ucaldas.terapiapp.modelo.ReporteServicio;
 import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
+import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +31,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ServicioReservacionFirebase {
-    private FirebaseFunctions functions;
+    private final FirebaseFunctions functions;
 
     public ServicioReservacionFirebase(){
         functions = FirebaseFunctions.getInstance();
@@ -37,9 +41,9 @@ public class ServicioReservacionFirebase {
         Map<String, Object> data = new HashMap<>();
         data.put("Fecha", reservacion.getFecha());
         data.put("Hora", reservacion.getHora());
-        data.put("Id_Cliente", reservacion.getId_Cliente());
-        data.put("Id_EstadoReserva", reservacion.getId_EstadoReserva());
-        data.put("Id_Servicio", reservacion.getId_Servicio());
+        data.put("Id_Cliente", reservacion.getCliente().getId());
+        data.put("Id_EstadoReserva", reservacion.getEstadoReserva().getId());
+        data.put("Id_Servicio", reservacion.getServicio().getId());
         data.put("Lugar", reservacion.getLugar());
         data.put("Observaciones", reservacion.getObservaciones());
         functions
@@ -106,24 +110,41 @@ public class ServicioReservacionFirebase {
                 .continueWith(new Continuation<HttpsCallableResult, ArrayList<Reserva>>() {
                     @Override
                     public ArrayList<Reserva> then(@NonNull Task<HttpsCallableResult> task) throws Exception {
-                        ArrayList<Reserva> listaReserva = new ArrayList<>();
                         if (task.isSuccessful()) {
                             HttpsCallableResult result = task.getResult();
                             if (result != null) {
-                                ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) result.getData();
-                                listaReserva = data.stream().map(d -> {
+                                ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
+                                for (Map<String, Object> d : informacion) {
                                     Reserva reserva = new Reserva();
-                                    reserva.setId_Servicio((Integer)d.get("Id_Servicio"));
-                                    reserva.setId_Cliente((Integer)d.get("Id_Cliente"));
-                                    reserva.setId_EstadoReserva((Integer)d.get("Id_EstadoReserva"));
+                                    Servicio servicio = new Servicio();
+                                    servicio.setNombre((String)d.get("NombreServicio"));
+                                    servicio.setPrecio(Double.parseDouble(d.get("PrecioServicio")+""));
+                                    servicio.setDuracion((Integer) d.get("DuracionServicio"));
+                                    servicio.setDescripcion((String)d.get("DescripcionServicio"));
+                                    servicio.setMateriales((String)d.get("MaterialesServicio"));
+                                    servicio.setProcedimiento((String)d.get("ProcedimientoServicio"));
+                                    servicio.setImagenes((ArrayList<String>) d.get("ImagenesServicio"));
+
+                                    Cliente cliente = new Cliente();
+                                    cliente.setId((String)d.get("Id_Cliente"));
+
+                                    EstadoReserva estadoReserva = new EstadoReserva();
+                                    estadoReserva.setId((String)d.get("Id_EstadoReserva"));
+                                    estadoReserva.setNombre((String)d.get("NombreEstadoReserva"));
+
+                                    reserva.setServicio(servicio);
+                                    reserva.setCliente(cliente);
+                                    reserva.setEstadoReserva(estadoReserva);
                                     reserva.setFecha((String) d.get("Fecha"));
                                     reserva.setHora((String) d.get("Hora"));
                                     reserva.setObservaciones((String) d.get("Observaciones"));
                                     reserva.setLugar((String) d.get("Lugar"));
+
                                     listaReservas.add(reserva);
-                                    return reserva;
-                                }).collect(Collectors.toCollection(ArrayList::new));
+                                }
                             }
+                        }else{
+                            Log.d("hola", "then: error");
                         }
                         return listaReservas;
                     }
