@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.ucaldas.terapiapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ImagePagerAdapter extends PagerAdapter {
     private ArrayList<String> images;

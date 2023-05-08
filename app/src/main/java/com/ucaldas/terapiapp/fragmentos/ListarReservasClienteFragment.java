@@ -1,15 +1,9 @@
 package com.ucaldas.terapiapp.fragmentos;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,15 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
-import com.ucaldas.terapiapp.helpers.CalendarioFecha;
 import com.ucaldas.terapiapp.helpers.ReservaAdapter;
 import com.ucaldas.terapiapp.modelo.Reserva;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ListarReservasClienteFragment extends Fragment {

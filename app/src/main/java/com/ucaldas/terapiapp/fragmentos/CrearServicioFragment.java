@@ -155,7 +155,6 @@ public class CrearServicioFragment extends Fragment {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    Log.d("cargaImagen", "progreso de carga: " + progress + "% completo");
                 }
             });
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

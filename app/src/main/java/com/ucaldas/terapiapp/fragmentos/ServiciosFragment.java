@@ -7,32 +7,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.ucaldas.terapiapp.DAL.ServicioServicioFirebase;
 import com.ucaldas.terapiapp.R;
-import com.ucaldas.terapiapp.helpers.ReporteAdapter;
 import com.ucaldas.terapiapp.helpers.ServicioAdapter;
-import com.ucaldas.terapiapp.modelo.ReporteServicio;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
 
 
 public class ServiciosFragment extends Fragment {
-
-    // TODO: Rename and change types of parameters
     View vista;
     private RecyclerView serviciosRecyclerView;
     private ServicioAdapter servicioAdapter;
-    Button btnReservar;
 
     public ServiciosFragment() {
         // Required empty public constructor
@@ -50,8 +42,6 @@ public class ServiciosFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Servicio>> task) {
 
-                Log.d("hola3", task.getResult().toString());
-
                 if (task.isSuccessful()){
                     ArrayList<Servicio> listaServicios = task.getResult();
                     serviciosRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,10 +58,6 @@ public class ServiciosFragment extends Fragment {
                 }
             }
         });
-
-
-
-
         return vista;
 
     }

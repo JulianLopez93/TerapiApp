@@ -10,14 +10,11 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
-import com.ucaldas.terapiapp.helpers.CargandoAlerta;
 import com.ucaldas.terapiapp.modelo.ReporteServicio;
-import com.ucaldas.terapiapp.modelo.Reserva;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ServicioReporteFirebase {
 
@@ -38,7 +35,7 @@ public class ServicioReporteFirebase {
                     public ArrayList<ReporteServicio> then(@NonNull Task<HttpsCallableResult> task) throws Exception {
                         if (task.isSuccessful()) {
                             HttpsCallableResult result = task.getResult();
-
+                            Log.d("hola", "onComplete: "+result.getData().toString());
                             if (result != null) {
                                 ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
                                 for (Map<String, Object> d : informacion) {
@@ -76,11 +73,9 @@ public class ServicioReporteFirebase {
                 .continueWith(task -> {
                     if (task.isSuccessful()) {
                         ArrayList<String> result = (ArrayList<String>) task.getResult().getData();
-                        Log.d("hola", task.getResult().getData().toString());
                         return result;
                     } else {
                         Exception e = task.getException();
-                        Log.d("hola", "error"+task.getException().toString());
                         throw e;
                     }
                 });
