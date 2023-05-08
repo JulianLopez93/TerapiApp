@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
 import com.ucaldas.terapiapp.fragmentos.CrearServicioFragment;
+import com.ucaldas.terapiapp.fragmentos.ListarReservasClienteFragment;
 import com.ucaldas.terapiapp.fragmentos.ListarReservasFragment;
 import com.ucaldas.terapiapp.fragmentos.ReporteFragment;
 import com.ucaldas.terapiapp.fragmentos.ServiciosFragment;
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_reporteServicios:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReporteFragment()).commit();
+                break;
+            case R.id.nav_listarMisReservas:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListarReservasClienteFragment()).commit();
                 break;
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new sobreNosotrosFragment()).commit();
