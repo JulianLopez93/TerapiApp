@@ -1,17 +1,29 @@
 package com.ucaldas.terapiapp.helpers;
 
+
+
+
+import static android.app.PendingIntent.getActivity;
+
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ucaldas.terapiapp.R;
+import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
 import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
@@ -24,6 +36,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
 
     private View.OnClickListener listener;
     private Handler handler = new Handler();
+    private Context mContext;
 
     public void setOnClickListener(View.OnClickListener listener){
         this.listener=listener;
@@ -33,6 +46,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     {
         this.inflater = LayoutInflater.from(context);
         this.servicios = servicios;
+        mContext = context;
     }
 
     @NonNull
@@ -62,6 +76,28 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         }
         ImagePagerAdapter adapter = new ImagePagerAdapter(listaImagenes, inflater.getContext());
         holder.imageViewPager.setAdapter(adapter);
+
+        holder.btnReservar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new CrearReservaFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Id", item.getId());
+                bundle.putString("Nombre", item.getNombre());
+                bundle.putString("Descripcion", item.getDescripcion());
+                bundle.putString("Duracion", item.getDuracion()+"");
+                bundle.putString("Precio", item.getPrecio()+"");
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+
+        });
 
         // Establecer ViewPager para cambiar automáticamente de página
         final int count = adapter.getCount();
@@ -96,6 +132,8 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     public class ServicioViewHolder extends RecyclerView.ViewHolder{
         TextView nombre,descripcion,duracion, precio;
         private ViewPager imageViewPager;
+
+        Button btnReservar;
         public ServicioViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombreServicioC);
@@ -103,6 +141,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
             duracion = itemView.findViewById(R.id.duracion);
             precio = itemView.findViewById(R.id.precio);
             imageViewPager = itemView.findViewById(R.id.imageViewPagerC);
+            btnReservar = itemView.findViewById(R.id.btnReservarC);
 
         }
     }

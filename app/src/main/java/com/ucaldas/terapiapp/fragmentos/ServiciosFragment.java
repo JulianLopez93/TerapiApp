@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,7 @@ public class ServiciosFragment extends Fragment {
     View vista;
     private RecyclerView serviciosRecyclerView;
     private ServicioAdapter servicioAdapter;
+    Button btnReservar;
 
     public ServiciosFragment() {
         // Required empty public constructor
@@ -66,6 +68,8 @@ public class ServiciosFragment extends Fragment {
                 }
             }
         });
+
+
 
 
         return vista;
