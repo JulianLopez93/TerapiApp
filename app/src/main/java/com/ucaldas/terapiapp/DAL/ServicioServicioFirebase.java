@@ -2,7 +2,6 @@ package com.ucaldas.terapiapp.DAL;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -16,14 +15,11 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
-import com.ucaldas.terapiapp.modelo.ReporteServicio;
-import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ServicioServicioFirebase {
 
@@ -97,8 +93,8 @@ public class ServicioServicioFirebase {
                         if (result != null) {
                             ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
                             for (Map<String, Object> d : informacion) {
-                                Log.d("hola2", d.get("Nombre").toString());
                                 Servicio servicio = new Servicio();
+                                servicio.setId((String)d.get("Id_Servicio"));
                                 servicio.setNombre((String) d.get("Nombre"));
                                 servicio.setDescripcion((String) d.get("Descripcion"));
                                 servicio.setDuracion((Integer) d.get("Duracion"));
@@ -107,25 +103,10 @@ public class ServicioServicioFirebase {
                                 servicio.setMateriales((String) d.get("Materiales"));
                                 servicio.setImagenes((ArrayList<String>) d.get("Imagenes"));
                                 listaServicios.add(servicio);
-                                Log.d("hola2","Servicio: "+ servicio.getNombre());
                             }
-                            /*
-                            ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) result.getData();
-                            listaServicio = data.stream().map(d -> {
-                                Servicio servicio = new Servicio();
-                                servicio.setNombre((String) d.get("Nombre"));
-                                servicio.setDuracion((Integer) d.get("Duracion"));
-                                servicio.setPrecio((Double) d.get("Precio"));
-                                listaServicios.add(servicio);
-                                Log.d("hola2","Servicio: "+ servicio.getNombre());
-                                return servicio;
-
-                            }).collect(Collectors.toCollection(ArrayList::new));
-                        */
                         }
 
                     }
-                    Log.d("hola2", listaServicios.toString());
                     return listaServicios;
                 }
             });

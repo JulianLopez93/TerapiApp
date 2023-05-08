@@ -2,15 +2,10 @@ package com.ucaldas.terapiapp.fragmentos;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +29,6 @@ import com.ucaldas.terapiapp.helpers.CargandoAlerta;
 import com.ucaldas.terapiapp.helpers.ReporteAdapter;
 
 import com.ucaldas.terapiapp.modelo.ReporteServicio;
-import com.ucaldas.terapiapp.modelo.Reserva;
 
 
 import java.util.ArrayList;
@@ -90,9 +84,10 @@ public class ReporteFragment extends Fragment {
 
                         if (task.isSuccessful()){
                             ArrayList<ReporteServicio> listaReporteServicios = task.getResult();
-                                reporteRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                reporteAdapter = new ReporteAdapter(vista.getContext(),listaReporteServicios);
-                                reporteRecyclerView.setAdapter(reporteAdapter);
+
+                            reporteRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            reporteAdapter = new ReporteAdapter(vista.getContext(),listaReporteServicios);
+                            reporteRecyclerView.setAdapter(reporteAdapter);
                         }else{
                             cargandoAlerta.dismiss();
                             new AlertDialog.Builder(vista.getContext())

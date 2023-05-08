@@ -1,10 +1,5 @@
 package com.ucaldas.terapiapp.helpers;
 
-
-
-
-import static android.app.PendingIntent.getActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
-import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
@@ -86,8 +80,12 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
                 bundle.putString("Id", item.getId());
                 bundle.putString("Nombre", item.getNombre());
                 bundle.putString("Descripcion", item.getDescripcion());
+                bundle.putString("Materiales", item.getMateriales());
+                bundle.putString("Procedimiento", item.getProcedimiento());
                 bundle.putString("Duracion", item.getDuracion()+"");
                 bundle.putString("Precio", item.getPrecio()+"");
+                bundle.putString("Imagenes", item.getImagenes()+"");
+
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();

@@ -1,7 +1,6 @@
 package com.ucaldas.terapiapp.DAL;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
@@ -12,15 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.ucaldas.terapiapp.R;
+import com.ucaldas.terapiapp.fragmentos.ServiciosFragment;
 import com.ucaldas.terapiapp.modelo.Cliente;
 import com.ucaldas.terapiapp.modelo.EstadoReserva;
-import com.ucaldas.terapiapp.modelo.ReporteServicio;
 import com.ucaldas.terapiapp.modelo.Reserva;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 import com.ucaldas.terapiapp.modelo.Servicio;
@@ -63,7 +60,7 @@ public class ServicioReservacionFirebase {
                                     dialog.dismiss();
                                     FragmentManager fragmentManager = ((AppCompatActivity) vista.getContext()).getSupportFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.fragment_container, new sobreNosotrosFragment());
+                                    fragmentTransaction.replace(R.id.fragment_container, new ServiciosFragment());
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
                                 }

@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,17 +21,12 @@ import com.ucaldas.terapiapp.DAL.ServicioReservacionFirebase;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.helpers.CalendarioFecha;
 import com.ucaldas.terapiapp.helpers.*;
-import com.ucaldas.terapiapp.helpers.SeleccionadorFecha;
 import com.ucaldas.terapiapp.modelo.Reserva;
 
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 public class ListarReservasFragment extends Fragment {
 
@@ -92,14 +85,12 @@ public class ListarReservasFragment extends Fragment {
                 servicioReservacionFirebase.listarReservas(s.toString()).addOnCompleteListener(new OnCompleteListener<ArrayList<Reserva>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Reserva>> task) {
-                        Log.d("hola", task.getResult().toString());
                         if (task.isSuccessful()){
                             ArrayList<Reserva> listaReservas = task.getResult();
                             reservasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             reservaAdapter = new ReservaAdapter(vista.getContext(),listaReservas);
                             reservasRecyclerView.setAdapter(reservaAdapter);
                         }else{
-                            Log.d("hola", task.getException().getMessage());
                             task.getException().printStackTrace();
                         }
                     }
