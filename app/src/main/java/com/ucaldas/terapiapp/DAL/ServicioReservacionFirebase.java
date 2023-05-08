@@ -26,6 +26,8 @@ import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -142,6 +144,69 @@ public class ServicioReservacionFirebase {
 
                                     listaReservas.add(reserva);
                                 }
+                            }
+                        }else{
+                            Log.d("hola", "then: error");
+                        }
+                        return listaReservas;
+                    }
+                });
+    }
+
+    public Task<ArrayList<Reserva>> listarReservasPorCliente(String idCliente) {
+        ArrayList<Reserva> listaReservas = new ArrayList<>();
+        Map<String, Object> data = new HashMap<>();
+        data.put("Id_Cliente", idCliente);
+        return functions
+                .getHttpsCallable("consultarReservasPorCliente")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, ArrayList<Reserva>>() {
+                    @Override
+                    public ArrayList<Reserva> then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        if (task.isSuccessful()) {
+                            HttpsCallableResult result = task.getResult();
+                            if (result != null) {
+                                //Obtener la informacion de las reservas y guardarla en un arraylist de tipo reserva
+                                ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
+                                for (Map<String, Object> d : informacion) {
+                                    Reserva reserva = new Reserva();
+                                    Servicio servicio = new Servicio();
+                                    servicio.setNombre((String)d.get("NombreServicio"));
+                                    servicio.setPrecio(Double.parseDouble(d.get("PrecioServicio")+""));
+                                    servicio.setDuracion((Integer) d.get("DuracionServicio"));
+                                    servicio.setDescripcion((String)d.get("DescripcionServicio"));
+                                    servicio.setMateriales((String)d.get("MaterialesServicio"));
+                                    servicio.setProcedimiento((String)d.get("ProcedimientoServicio"));
+                                    servicio.setImagenes((ArrayList<String>) d.get("ImagenesServicio"));
+
+                                    Cliente cliente = new Cliente();
+                                    cliente.setId((String)d.get("Id_Cliente"));
+
+                                    EstadoReserva estadoReserva = new EstadoReserva();
+                                    estadoReserva.setId((String)d.get("Id_EstadoReserva"));
+                                    estadoReserva.setNombre((String)d.get("NombreEstadoReserva"));
+
+                                    reserva.setServicio(servicio);
+                                    reserva.setCliente(cliente);
+                                    reserva.setEstadoReserva(estadoReserva);
+                                    reserva.setFecha((String) d.get("Fecha"));
+                                    reserva.setHora((String) d.get("Hora"));
+                                    reserva.setObservaciones((String) d.get("Observaciones"));
+                                    reserva.setLugar((String) d.get("Lugar"));
+
+                                    listaReservas.add(reserva);
+                                }
+                                // Crear un comparador que compare las reservas por EstadoReserva
+                                Comparator<Reserva> comparador = new Comparator<Reserva>() {
+                                    @Override
+                                    public int compare(Reserva reserva1, Reserva reserva2) {
+                                        return reserva1.getEstadoReserva().getNombre().compareTo(reserva2.getEstadoReserva().getNombre());
+                                    }
+                                };
+
+                               // Ordenar la lista de reservas por EstadoReserva
+                                Collections.sort(listaReservas, comparador);
+
                             }
                         }else{
                             Log.d("hola", "then: error");

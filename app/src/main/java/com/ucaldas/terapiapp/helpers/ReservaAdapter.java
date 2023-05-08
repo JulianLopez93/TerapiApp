@@ -29,7 +29,12 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
         private TextView nombreServicioL;
         private TextView observacionesServicioL;
         private TextView horaServicioL;
+
+        private TextView estadoReserva;
+
+        private TextView fechaReserva;
         private ViewPager imageViewPager;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -37,6 +42,8 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
             observacionesServicioL = itemView.findViewById(R.id.observacionesServicioL);
             imageViewPager = itemView.findViewById(R.id.imageViewPager);
             horaServicioL = itemView.findViewById(R.id.horaServicioL);
+            fechaReserva = itemView.findViewById(R.id.fechaReserva);
+            estadoReserva = itemView.findViewById(R.id.estadoReserva);
         }
     }
 
@@ -48,14 +55,16 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Reserva item = reservas.get(position);
+        Reserva reserva = reservas.get(position);
 
-        holder.nombreServicioL.setText(item.getServicio().getNombre());
-        holder.observacionesServicioL.setText(item.getObservaciones());
-        item.getEstadoReserva().getNombre();
-        holder.horaServicioL.setText(item.getHora());
+        holder.nombreServicioL.setText(reserva.getServicio().getNombre());
+        holder.observacionesServicioL.setText(reserva.getObservaciones());
+        reserva.getEstadoReserva().getNombre();
+        holder.horaServicioL.setText(reserva.getHora());
+        holder.estadoReserva.setText(reserva.getEstadoReserva().getNombre());
+        holder.fechaReserva.setText(reserva.getFecha());
         ArrayList<String> listaImagenes = new ArrayList<>();
-        for (String imagen: item.getServicio().getImagenes()){
+        for (String imagen: reserva.getServicio().getImagenes()){
             if (!imagen.equals("")){
                 listaImagenes.add(imagen);
             }

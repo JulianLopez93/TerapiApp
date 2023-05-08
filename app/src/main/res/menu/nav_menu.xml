@@ -25,6 +25,10 @@
             android:id="@+id/nav_reporteServicios"
             android:icon="@drawable/tareas_pendientes"
             android:title="Servicios mas Vendidos" />
+        <item
+            android:id="@+id/nav_listarMisReservas"
+            android:icon="@drawable/tareas_pendientes"
+            android:title="Listar mis reservas"/>
     </group>
     <item
         android:title="">
