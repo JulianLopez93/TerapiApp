@@ -3,10 +3,12 @@ package com.ucaldas.terapiapp.helpers;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,14 +56,20 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     @Override
     public void onBindViewHolder(@NonNull ServicioViewHolder holder, int position) {
         Servicio item = servicios.get(position);
+        Log.d("Hola", "Materiales: "+servicios.get(position).getMateriales().toString());
+        Log.d("Hola", "Procedimiento: "+servicios.get(position).getProcedimiento().toString());
         String nombre = servicios.get(position).getNombre();
         String descripcion = servicios.get(position).getDescripcion();
         String duracion = servicios.get(position).getDuracion()+" min";
         String precio = "$"+servicios.get(position).getPrecio()+"";
+        String materiales = servicios.get(position).getMateriales();
+        String procedimiento = servicios.get(position).getProcedimiento();
         holder.nombre.setText(nombre);
         holder.descripcion.setText(descripcion);
         holder.duracion.setText(duracion);
         holder.precio.setText(precio);
+        holder.materiales2.setText(materiales);
+        holder.procedimiento2.setText(procedimiento);
         ArrayList<String> listaImagenes = new ArrayList<>();
         for (String imagen: item.getImagenes()){
             if (!imagen.equals("")){
@@ -97,6 +105,12 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
 
         });
 
+        holder.titMateriales.setVisibility(View.GONE);
+        holder.titProcedimiento.setVisibility(View.GONE);
+        holder.materiales2.setVisibility(View.GONE);
+        holder.procedimiento2.setVisibility(View.GONE);
+
+
         // Establecer ViewPager para cambiar automáticamente de página
         final int count = adapter.getCount();
         final Runnable runnable = new Runnable() {
@@ -128,10 +142,12 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     }
 
     public class ServicioViewHolder extends RecyclerView.ViewHolder{
-        TextView nombre,descripcion,duracion, precio;
+        TextView nombre,descripcion,duracion, precio, materiales2, procedimiento2, titMateriales, titProcedimiento;
         private ViewPager imageViewPager;
-
         Button btnReservar;
+        Button btnVerMas;
+        public LinearLayout mExpandedLayout;
+
         public ServicioViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombreServicioC);
@@ -140,6 +156,30 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
             precio = itemView.findViewById(R.id.precio);
             imageViewPager = itemView.findViewById(R.id.imageViewPagerC);
             btnReservar = itemView.findViewById(R.id.btnReservarC);
+            btnVerMas = itemView.findViewById(R.id.btnVerMas);
+            materiales2 = itemView.findViewById(R.id.txtMateriales2);
+            procedimiento2 = itemView.findViewById(R.id.txtProcedimiento2);
+            titMateriales = itemView.findViewById(R.id.textView2);
+            titProcedimiento = itemView.findViewById(R.id.textView4);
+
+            btnVerMas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (materiales2.getVisibility() == View.GONE) {
+                        materiales2.setVisibility(View.VISIBLE);
+                        procedimiento2.setVisibility(View.VISIBLE);
+                        titMateriales.setVisibility(View.VISIBLE);
+                        titProcedimiento.setVisibility(View.VISIBLE);
+                        btnVerMas.setText("Ver menos");
+                    } else {
+                        materiales2.setVisibility(View.GONE);
+                        procedimiento2.setVisibility(View.GONE);
+                        titMateriales.setVisibility(View.GONE);
+                        titProcedimiento.setVisibility(View.GONE);
+                        btnVerMas.setText("Ver más");
+                    }
+                }
+            });
 
         }
     }
