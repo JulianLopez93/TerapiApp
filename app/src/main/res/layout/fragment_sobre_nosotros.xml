@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".fragmentos.sobreNosotrosFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,8 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CerberoSoft Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavender"/>
+        android:textColor="@color/lavender"
+        android:textSize="30sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="344dp"
+        android:layout_height="53dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+</LinearLayout>

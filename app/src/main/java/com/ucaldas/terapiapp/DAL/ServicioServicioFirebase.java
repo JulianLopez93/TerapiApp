@@ -4,21 +4,28 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.ucaldas.terapiapp.R;
 import com.ucaldas.terapiapp.fragmentos.sobreNosotrosFragment;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ServicioServicioFirebase {
 
     private FirebaseFunctions functions;
+
+    private ArrayList<Servicio> listaServicios = new ArrayList<>();
 
     public ServicioServicioFirebase(){
         functions = FirebaseFunctions.getInstance();
@@ -70,6 +77,39 @@ public class ServicioServicioFirebase {
                                 }
                             }).show();
                 });
+    }
+
+    public Task<ArrayList<Servicio>> listarServicios()
+    {
+
+        return functions
+                .getHttpsCallable("consultarServicios")
+                .call()
+                .continueWith(new Continuation<HttpsCallableResult, ArrayList<Servicio>>() {
+                @Override
+                public ArrayList<Servicio> then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                    if (task.isSuccessful()) {
+                        HttpsCallableResult result = task.getResult();
+                        if (result != null) {
+                            ArrayList<Map<String, Object>> informacion = (ArrayList<Map<String, Object>>) result.getData();
+                            for (Map<String, Object> d : informacion) {
+                                Servicio servicio = new Servicio();
+                                servicio.setId((String)d.get("Id_Servicio"));
+                                servicio.setNombre((String) d.get("Nombre"));
+                                servicio.setDescripcion((String) d.get("Descripcion"));
+                                servicio.setDuracion((Integer) d.get("Duracion"));
+                                servicio.setPrecio(Double.parseDouble (d.get("Precio")+""));
+                                servicio.setProcedimiento((String) d.get("Procedimiento"));
+                                servicio.setMateriales((String) d.get("Materiales"));
+                                servicio.setImagenes((ArrayList<String>) d.get("Imagenes"));
+                                listaServicios.add(servicio);
+                            }
+                        }
+
+                    }
+                    return listaServicios;
+                }
+            });
     }
 
 }

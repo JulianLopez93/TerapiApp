@@ -11,24 +11,20 @@
             android:title="Crear Servicio"/>
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/nav_home"
-            android:title="Servicios"/>
-        <item
-            android:id="@+id/nav_crearReserva"
             android:icon="@drawable/nav_shop"
-            android:title="Crear Reserva"/>
+            android:title="Servicios"/>
         <item
             android:id="@+id/nav_listarReserva"
             android:icon="@drawable/tareas_pendientes"
-            android:title="Listar Reservas"/>
+            android:title="Listar Reservas De Clientes"/>
         <item
             android:id="@+id/nav_reporteServicios"
-            android:icon="@drawable/tareas_pendientes"
-            android:title="Servicios mas Vendidos" />
+            android:icon="@drawable/statistics_icon"
+            android:title="Servicios Mas Vendidos" />
         <item
             android:id="@+id/nav_listarMisReservas"
             android:icon="@drawable/tareas_pendientes"
-            android:title="Listar mis reservas"/>
+            android:title="Listar Mis Reservas"/>
     </group>
     <item
         android:title="">

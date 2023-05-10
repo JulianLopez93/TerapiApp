@@ -1,66 +1,64 @@
 package com.ucaldas.terapiapp.fragmentos;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.ucaldas.terapiapp.DAL.ServicioServicioFirebase;
 import com.ucaldas.terapiapp.R;
+import com.ucaldas.terapiapp.helpers.ServicioAdapter;
+import com.ucaldas.terapiapp.modelo.Servicio;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ServiciosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class ServiciosFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    View vista;
+    private RecyclerView serviciosRecyclerView;
+    private ServicioAdapter servicioAdapter;
 
     public ServiciosFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ServiciosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ServiciosFragment newInstance(String param1, String param2) {
-        ServiciosFragment fragment = new ServiciosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_servicios, container, false);
+        vista = inflater.inflate(R.layout.fragment_listar_servicios, container, false);
+        serviciosRecyclerView = vista.findViewById(R.id.listarServiciosRecyclerView);
+
+        ServicioServicioFirebase servicioServicioFirebase = new ServicioServicioFirebase();
+        servicioServicioFirebase.listarServicios().addOnCompleteListener(new OnCompleteListener<ArrayList<Servicio>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Servicio>> task) {
+
+                if (task.isSuccessful()){
+                    ArrayList<Servicio> listaServicios = task.getResult();
+                    serviciosRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    servicioAdapter = new ServicioAdapter(vista.getContext(),listaServicios);
+                    serviciosRecyclerView.setAdapter(servicioAdapter);
+                }else{
+                    new AlertDialog.Builder(vista.getContext())
+                            .setTitle("Error")
+                            .setMessage(task.getException().toString())
+                            .setPositiveButton("Aceptar", (dialog, which) -> {
+                                dialog.dismiss();
+                            })
+                            .show();
+                }
+            }
+        });
+        return vista;
+
     }
 }
