@@ -31,7 +31,7 @@ public class ListarReservasClienteFragment extends Fragment {
 
         reservasRecyclerView = vista.findViewById(R.id.listarReservasReciclerView);
         ArrayList<Reserva> lista = new ArrayList<>();
-        String cliente="1";
+        String cliente="3";
         ServicioReservacionFirebase servicioReservacionFirebase = new ServicioReservacionFirebase();
         servicioReservacionFirebase.listarReservasPorCliente(cliente).addOnCompleteListener(new OnCompleteListener<ArrayList<Reserva>>() {
             @Override
