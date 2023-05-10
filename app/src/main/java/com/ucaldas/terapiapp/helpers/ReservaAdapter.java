@@ -1,5 +1,7 @@
 package com.ucaldas.terapiapp.helpers;
 
+import static java.lang.Math.round;
+
 import android.content.Context;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
         private TextView estadoReserva;
 
         private TextView fechaReserva;
+        private TextView precioServicio;
         private ViewPager imageViewPager;
 
 
@@ -44,6 +47,7 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
             horaServicioL = itemView.findViewById(R.id.horaServicioL);
             fechaReserva = itemView.findViewById(R.id.fechaReserva);
             estadoReserva = itemView.findViewById(R.id.estadoReserva);
+            precioServicio = itemView.findViewById(R.id.precioServicio);
         }
     }
 
@@ -63,6 +67,7 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
         holder.horaServicioL.setText(reserva.getHora());
         holder.estadoReserva.setText(reserva.getEstadoReserva().getNombre());
         holder.fechaReserva.setText(reserva.getFecha());
+        holder.precioServicio.setText("$" + round(reserva.getServicio().getPrecio()));
         ArrayList<String> listaImagenes = new ArrayList<>();
         for (String imagen: reserva.getServicio().getImagenes()){
             if (!imagen.equals("")){
