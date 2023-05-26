@@ -64,7 +64,7 @@ public class ReporteFragment extends Fragment {
 
         btnAtras.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new sobreNosotrosFragment())
+                    .replace(R.id.fragment_container, new ServiciosFragment())
                     .commit();
         });
         return vista;

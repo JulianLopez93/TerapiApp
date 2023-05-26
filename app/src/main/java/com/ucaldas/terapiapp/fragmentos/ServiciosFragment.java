@@ -44,9 +44,20 @@ public class ServiciosFragment extends Fragment {
 
                 if (task.isSuccessful()){
                     ArrayList<Servicio> listaServicios = task.getResult();
-                    serviciosRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    servicioAdapter = new ServicioAdapter(vista.getContext(),listaServicios);
-                    serviciosRecyclerView.setAdapter(servicioAdapter);
+                    if (listaServicios.size()!=0){
+                        serviciosRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        servicioAdapter = new ServicioAdapter(vista.getContext(),listaServicios);
+                        serviciosRecyclerView.setAdapter(servicioAdapter);
+                    }else{
+                        new AlertDialog.Builder(vista.getContext())
+                                .setTitle("Servicios")
+                                .setMessage("No hay servicios disponibles.")
+                                .setPositiveButton("Aceptar", (dialog, which) -> {
+                                    dialog.dismiss();
+                                })
+                                .show();
+                    }
+
                 }else{
                     new AlertDialog.Builder(vista.getContext())
                             .setTitle("Error")

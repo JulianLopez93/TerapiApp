@@ -36,7 +36,7 @@ public class CrearServicioFragment extends Fragment {
     private ArrayList<String> imagenes = new ArrayList<>(Arrays.asList("", "", ""));
     private int imagenIndex = 0;
     private AlertDialog cargandoAlerta;
-    private Button btnCrearServicio;
+    private Button btnCrearServicio, btnCancelar;
     private TextView crearServicioNombre,crearServicioDuracion,crearServicioPrecio,
             crearServicioMateriales,crearServicioDescripcion,crearServicioProcedimiento;
 
@@ -49,6 +49,7 @@ public class CrearServicioFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_crear_servicio_fragment, container, false);
 
         btnCrearServicio = vista.findViewById(R.id.btnCrearServicio);
+        btnCancelar = vista.findViewById(R.id.btnCrearServicioCancelar);
 
         crearServicioNombre = vista.findViewById(R.id.crearServicioNombre);
         crearServicioDuracion = vista.findViewById(R.id.crearServicioDuracion);
@@ -64,6 +65,12 @@ public class CrearServicioFragment extends Fragment {
             agregarImagen(imageView,i);
             imageViews.add(imageView);
         }
+
+        btnCancelar.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new ServiciosFragment())
+                    .commit();
+        });
 
         btnCrearServicio.setOnClickListener(v -> {
             cargandoAlerta = new CargandoAlerta().cargaAlerta(getLayoutInflater(), vista);

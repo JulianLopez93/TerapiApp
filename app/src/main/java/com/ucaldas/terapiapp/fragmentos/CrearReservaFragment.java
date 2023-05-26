@@ -51,9 +51,16 @@ public class CrearReservaFragment extends Fragment {
         Spinner seleccionHora = vista.findViewById(R.id.seleccionHora);
 
         Button btnReservar = vista.findViewById(R.id.btnReservar);
+        Button btnCancelar = vista.findViewById(R.id.btnCancelar);
 
         EditText fecha = vista.findViewById(R.id.fecha);
         EditText observaciones = vista.findViewById(R.id.observaciones);
+
+        btnCancelar.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new ServiciosFragment())
+                    .commit();
+        });
 
         btnReservar.setOnClickListener(v -> {
             cargandoAlerta = new CargandoAlerta().cargaAlerta(getLayoutInflater(),vista);

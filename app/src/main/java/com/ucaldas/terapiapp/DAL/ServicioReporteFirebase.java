@@ -20,6 +20,11 @@ public class ServicioReporteFirebase {
 
     private FirebaseFunctions functions;
 
+    /**
+     * Trae de la base de datos una lista con los reportes filtrados por un mes
+     * en caso de no haber reportes se muestra un mensaje indicando esto
+     * @return reportes, lista con los reportes
+     */
     public ServicioReporteFirebase(){
         functions = FirebaseFunctions.getInstance();
     }
@@ -59,24 +64,6 @@ public class ServicioReporteFirebase {
                                     .show();
                         }
                         return reportes;
-                    }
-                });
-    }
-
-    public Task<ArrayList<String>> servicios(String id) {
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("Id", id);
-
-        return functions.getHttpsCallable("consultarServicioReserva")
-                .call(data)
-                .continueWith(task -> {
-                    if (task.isSuccessful()) {
-                        ArrayList<String> result = (ArrayList<String>) task.getResult().getData();
-                        return result;
-                    } else {
-                        Exception e = task.getException();
-                        throw e;
                     }
                 });
     }

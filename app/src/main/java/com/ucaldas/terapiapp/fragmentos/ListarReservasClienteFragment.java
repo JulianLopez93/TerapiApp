@@ -1,5 +1,6 @@
 package com.ucaldas.terapiapp.fragmentos;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,19 +32,36 @@ public class ListarReservasClienteFragment extends Fragment {
 
         reservasRecyclerView = vista.findViewById(R.id.listarReservasReciclerView);
         ArrayList<Reserva> lista = new ArrayList<>();
-        String cliente="3";
+        String cliente="6";
         ServicioReservacionFirebase servicioReservacionFirebase = new ServicioReservacionFirebase();
         servicioReservacionFirebase.listarReservasPorCliente(cliente).addOnCompleteListener(new OnCompleteListener<ArrayList<Reserva>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Reserva>> task) {
                 if (task.isSuccessful()){
                     ArrayList<Reserva> listaReservas = task.getResult();
-                    reservasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    reservaAdapter = new ReservaAdapter(vista.getContext(),listaReservas);
-                    reservasRecyclerView.setAdapter(reservaAdapter);
+                    if (listaReservas.size()!=0){
+                        reservasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        reservaAdapter = new ReservaAdapter(vista.getContext(),listaReservas);
+                        reservasRecyclerView.setAdapter(reservaAdapter);
+                    }else{
+                        new AlertDialog.Builder(vista.getContext())
+                                .setTitle("Reservas")
+                                .setMessage("Aun no ha realizado ninguna reserva.")
+                                .setPositiveButton("Aceptar", (dialog, which) -> {
+                                    dialog.dismiss();
+                                })
+                                .show();
+                    }
+
 
                 }else{
-                    task.getException().printStackTrace();
+                    new AlertDialog.Builder(vista.getContext())
+                            .setTitle("Error")
+                            .setMessage(task.getException().toString())
+                            .setPositiveButton("Aceptar", (dialog, which) -> {
+                                dialog.dismiss();
+                            })
+                            .show();
                 }
             }
         });
