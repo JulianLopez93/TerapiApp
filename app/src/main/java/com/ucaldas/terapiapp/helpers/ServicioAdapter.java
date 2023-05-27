@@ -24,6 +24,8 @@ import com.ucaldas.terapiapp.fragmentos.CrearReservaFragment;
 import com.ucaldas.terapiapp.modelo.Servicio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ServicioViewHolder> implements View.OnClickListener{
 
@@ -53,23 +55,43 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         return new ServicioViewHolder(view);
     }
 
+    public void setBundleArguments(Bundle bundle, Servicio item) {
+        bundle.putString("Id", item.getId());
+        bundle.putString("Nombre", item.getNombre());
+        bundle.putString("Descripcion", item.getDescripcion());
+        bundle.putString("Materiales", item.getMateriales());
+        bundle.putString("Procedimiento", item.getProcedimiento());
+        bundle.putString("Duracion", item.getDuracion()+"");
+        bundle.putString("Precio", item.getPrecio()+"");
+        bundle.putString("Imagenes", item.getImagenes()+"");
+    }
+
+    public Map<String, String> setStringValues(int position) {
+        Map<String, String> values = new HashMap<>();
+        values.put("nombre", servicios.get(position).getNombre());
+        values.put("descripcion", servicios.get(position).getDescripcion());
+        values.put("duracion", servicios.get(position).getDuracion()+" min");
+        values.put("precio", "$"+servicios.get(position).getPrecio()+"");
+        values.put("materiales", servicios.get(position).getMateriales());
+        values.put("procedimiento", servicios.get(position).getProcedimiento());
+        return values;
+    }
+
+    public void setHolderValues(ServicioViewHolder holder, Map<String, String> values) {
+        holder.nombre.setText(values.get("nombre"));
+        holder.descripcion.setText(values.get("descripcion"));
+        holder.duracion.setText(values.get("duracion"));
+        holder.precio.setText(values.get("precio"));
+        holder.materiales2.setText(values.get("materiales"));
+        holder.procedimiento2.setText(values.get("procedimiento"));
+    }
     @Override
     public void onBindViewHolder(@NonNull ServicioViewHolder holder, int position) {
         Servicio item = servicios.get(position);
         Log.d("Hola", "Materiales: "+servicios.get(position).getMateriales().toString());
         Log.d("Hola", "Procedimiento: "+servicios.get(position).getProcedimiento().toString());
-        String nombre = servicios.get(position).getNombre();
-        String descripcion = servicios.get(position).getDescripcion();
-        String duracion = servicios.get(position).getDuracion()+" min";
-        String precio = "$"+servicios.get(position).getPrecio()+"";
-        String materiales = servicios.get(position).getMateriales();
-        String procedimiento = servicios.get(position).getProcedimiento();
-        holder.nombre.setText(nombre);
-        holder.descripcion.setText(descripcion);
-        holder.duracion.setText(duracion);
-        holder.precio.setText(precio);
-        holder.materiales2.setText(materiales);
-        holder.procedimiento2.setText(procedimiento);
+        Map<String, String> valuesOfHolder = setStringValues(position);
+        setHolderValues(holder,valuesOfHolder);
         ArrayList<String> listaImagenes = new ArrayList<>();
         for (String imagen: item.getImagenes()){
             if (!imagen.equals("")){
@@ -85,22 +107,13 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
             public void onClick(View view) {
                 Fragment fragment = new CrearReservaFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("Id", item.getId());
-                bundle.putString("Nombre", item.getNombre());
-                bundle.putString("Descripcion", item.getDescripcion());
-                bundle.putString("Materiales", item.getMateriales());
-                bundle.putString("Procedimiento", item.getProcedimiento());
-                bundle.putString("Duracion", item.getDuracion()+"");
-                bundle.putString("Precio", item.getPrecio()+"");
-                bundle.putString("Imagenes", item.getImagenes()+"");
-
+                setBundleArguments(bundle, item);
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_container, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
             }
 
         });
