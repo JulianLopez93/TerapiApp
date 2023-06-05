@@ -140,6 +140,11 @@ public class CrearServicioFragment extends Fragment {
     }
 
     @Override
+
+    /**
+     * @param int requestCode, int resultCode para obtiener la referencia de la imagen y
+     * Carga la imagen a Firebase Storage
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -150,14 +155,11 @@ public class CrearServicioFragment extends Fragment {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference imagesRef = storageRef.child("ImagenesServicios");
-            // Obtiene la referencia de la imagen seleccionada
             Uri selectedImageUri = data.getData();
             StorageReference imageRef = imagesRef.child(selectedImageUri.getLastPathSegment());
 
-            // Carga la imagen a Firebase Storage
             UploadTask uploadTask = imageRef.putFile(selectedImageUri);
 
-            // Escucha el progreso de la carga
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {

@@ -92,6 +92,10 @@ public class CrearReservaFragment extends Fragment {
 
     }
 
+    /**Se inicializan los argumentos para tener un control de seguridad, evitar que se ingresen valores inválidos
+     * y también para hacer la validaciones pertinentes
+     */
+
     private void inicializarArgumentosBundle(Bundle bundle) {
         idServicio = bundle.getString("Id");
         nombreServicio = vista.findViewById(R.id.nombreServicio);
