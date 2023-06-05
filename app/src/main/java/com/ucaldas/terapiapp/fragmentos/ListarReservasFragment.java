@@ -75,8 +75,8 @@ public class ListarReservasFragment extends Fragment {
 
 
     /**
-     * se necesita tomar la fecha de la ventana emergente, ésta se cambia a string para 
-     * poder manipularla 
+     * se necesita tomar la fecha de la ventana emergente, ésta se cambia a string para
+     * poder manipularla
      * @params se toman de la TextView
      */
     private void cambioTextoListener(TextView listarReservaFecha) {

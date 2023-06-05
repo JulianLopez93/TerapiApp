@@ -80,11 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new sobreNosotrosFragment()).commit();
                 break;
             case R.id.nav_logout:
+
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void logout (){
+        
     }
     @Override
     public void onBackPressed() {
